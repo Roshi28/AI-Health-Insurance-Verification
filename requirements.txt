@@ -1,0 +1,37 @@
+# --- Core web/backend ---
+fastapi
+uvicorn
+
+# --- Database/ORM ---
+SQLAlchemy
+psycopg2-binary       # PostgreSQL driver (free)
+
+# --- Auth/Security ---
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart       # For file uploads
+
+# --- Data processing ---
+pydantic
+numpy
+pandas
+
+# --- OCR (Open Source) ---
+pytesseract            # Python wrapper for Tesseract OCR (free)
+Pillow                 # Image processing
+opencv-python          # Image manipulation, pre-processing for OCR
+
+# --- NLP (Open Source) ---
+spacy                  # Lightweight Industrial-strength NLP library
+nltk                   # Natural Language Toolkit
+
+# --- ML/AI (Open Source) ---
+scikit-learn           # Machine Learning models
+xgboost                # Advanced ML (optional, free)
+
+# --- Utilities ---
+requests               # API calls, HTTP requests
+
+# Remove if not used:
+# boto3, google-cloud-vision  # Only needed if using AWS/GCP paid APIs
+
