@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyAI - Insurance Verification System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>VerifyAI</span>
+            </div>
+            <nav class="navbar-nav">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button class="nav-btn" data-tab="new-verification">
+                    <i class="fas fa-plus"></i> New Verification
+                </button>
+                <button class="nav-btn" data-tab="batch-processing">
+                    <i class="fas fa-upload"></i> Batch Upload
+                </button>
+                <button class="nav-btn" data-tab="ai-assistant">
+                    <i class="fas fa-robot"></i> AI Assistant
+                </button>
+                <button class="nav-btn" data-tab="analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </button>
+            </nav>
+            <div class="navbar-user">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span>Dr. Smith</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Dashboard Screen -->
+        <div id="dashboard" class="tab-content active">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Dashboard Overview</h1>
+                    <p class="page-subtitle">Real-time verification performance and insights</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-card--primary">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <div class="stat-card__value" id="verifications-today">127</div>
+                            <div class="stat-card__label">Verifications Today</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card--success">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <div class="stat-card__value" id="success-rate">94%</div>
+                            <div class="stat-card__label">Success Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card--info">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <div class="stat-card__value" id="avg-response">2.3s</div>
+                            <div class="stat-card__label">Avg Response Time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card--warning">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <div class="stat-card__value" id="high-risk-alerts">12</div>
+                            <div class="stat-card__label">High Risk Alerts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Verifications and Quick Actions -->
+                <div class="dashboard-content">
+                    <div class="dashboard-section">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Recent Verifications</h3>
+                                <button class="btn btn--sm btn--outline">View All</button>
+                            </div>
+                            <div class="card__body">
+                                <div class="table-container">
+                                    <table class="data-table" id="recent-verifications">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient</th>
+                                                <th>Insurance</th>
+                                                <th>Status</th>
+                                                <th>Risk Score</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-sidebar">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="quick-actions">
+                                    <button class="btn btn--primary btn--full-width" onclick="switchTab('new-verification')">
+                                        <i class="fas fa-plus"></i> New Verification
+                                    </button>
+                                    <button class="btn btn--outline btn--full-width" onclick="switchTab('batch-processing')">
+                                        <i class="fas fa-upload"></i> Batch Upload
+                                    </button>
+                                    <button class="btn btn--outline btn--full-width">
+                                        <i class="fas fa-file-alt"></i> Generate Report
+                                    </button>
+                                    <button class="btn btn--outline btn--full-width">
+                                        <i class="fas fa-cog"></i> Settings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>AI Model Performance</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="performance-metrics">
+                                    <div class="metric">
+                                        <div class="metric__label">OCR Accuracy</div>
+                                        <div class="metric__value">96.8%</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 96.8%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric__label">Prediction Accuracy</div>
+                                        <div class="metric__value">87.3%</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 87.3%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Verification Screen -->
+        <div id="new-verification" class="tab-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>New Verification</h1>
+                    <p class="page-subtitle">Upload insurance cards for AI-powered verification</p>
+                </div>
+
+                <div class="verification-content">
+                    <div class="upload-section">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Upload Insurance Card</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="upload-area" id="upload-area">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="upload-text">
+                                        <p>Drag & drop insurance card here or <span class="upload-link">browse files</span></p>
+                                        <p class="upload-hint">Supports JPG, PNG, PDF formats</p>
+                                    </div>
+                                    <input type="file" id="file-input" accept="image/*,.pdf" multiple hidden>
+                                </div>
+                                
+                                <div class="upload-options">
+                                    <button class="btn btn--outline" id="camera-btn">
+                                        <i class="fas fa-camera"></i> Use Camera
+                                    </button>
+                                </div>
+
+                                <div class="processing-status hidden" id="processing-status">
+                                    <div class="status-indicator">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        <span>AI Processing in progress...</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="processing-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Extracted Information</h3>
+                                <span class="status status--info">AI Extracted</span>
+                            </div>
+                            <div class="card__body">
+                                <form id="verification-form">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Name</label>
+                                            <input type="text" class="form-control" id="patient-name" placeholder="Enter patient name">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Policy Number</label>
+                                            <input type="text" class="form-control" id="policy-number" placeholder="Enter policy number">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Insurance Company</label>
+                                            <select class="form-control" id="insurance-company">
+                                                <option value="">Select insurance company</option>
+                                                <option value="blue-cross">Blue Cross Blue Shield</option>
+                                                <option value="aetna">Aetna</option>
+                                                <option value="united">United Healthcare</option>
+                                                <option value="cigna">Cigna</option>
+                                                <option value="anthem">Anthem</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Group Number</label>
+                                            <input type="text" class="form-control" id="group-number" placeholder="Enter group number">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Member ID</label>
+                                            <input type="text" class="form-control" id="member-id" placeholder="Enter member ID">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control" id="date-of-birth">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn--outline" id="edit-info">
+                                            <i class="fas fa-edit"></i> Edit Information
+                                        </button>
+                                        <button type="button" class="btn btn--primary" id="verify-coverage">
+                                            <i class="fas fa-shield-alt"></i> Verify Coverage
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Batch Processing Screen -->
+        <div id="batch-processing" class="tab-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Batch Processing</h1>
+                    <p class="page-subtitle">Upload multiple insurance cards for bulk verification</p>
+                </div>
+
+                <div class="batch-content">
+                    <div class="batch-upload">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Upload Files</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="upload-options-grid">
+                                    <div class="upload-option">
+                                        <div class="upload-area batch-upload-area">
+                                            <i class="fas fa-file-csv"></i>
+                                            <h4>CSV File Upload</h4>
+                                            <p>Upload a CSV file with patient information</p>
+                                            <button class="btn btn--outline">Choose CSV File</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="upload-option">
+                                        <div class="upload-area batch-upload-area">
+                                            <i class="fas fa-images"></i>
+                                            <h4>Image Folder Upload</h4>
+                                            <p>Upload multiple insurance card images</p>
+                                            <button class="btn btn--outline">Choose Images</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Processing Queue</h3>
+                                <div class="queue-stats">
+                                    <span class="queue-stat">4 files • 2 processing • 1 complete • 1 error</span>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="table-container">
+                                    <table class="data-table" id="batch-files-table">
+                                        <thead>
+                                            <tr>
+                                                <th>File Name</th>
+                                                <th>Patient</th>
+                                                <th>Status</th>
+                                                <th>Progress</th>
+                                                <th>Result</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="batch-sidebar">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Batch Processing Tips</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="tips-list">
+                                    <div class="tip-item">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>Ensure all images are high quality (300+ DPI)</span>
+                                    </div>
+                                    <div class="tip-item">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span>Name files with patient identifiers</span>
+                                    </div>
+                                    <div class="tip-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Processing time: ~30 seconds per file</span>
+                                    </div>
+                                    <div class="tip-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>All data is encrypted and HIPAA compliant</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Assistant Screen -->
+        <div id="ai-assistant" class="tab-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>AI Assistant</h1>
+                    <p class="page-subtitle">Get help with complex verification cases and prior authorizations</p>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-main">
+                        <div class="card chat-card">
+                            <div class="card__header">
+                                <h3>Chat with AI Assistant</h3>
+                                <span class="status status--success">Online</span>
+                            </div>
+                            <div class="card__body chat-body">
+                                <div class="chat-messages" id="chat-messages">
+                                    <!-- Messages populated by JavaScript -->
+                                </div>
+                                
+                                <div class="chat-input-container">
+                                    <div class="chat-input-wrapper">
+                                        <input type="text" class="chat-input" id="chat-input" placeholder="Ask me about insurance verification, prior auth, or denial patterns...">
+                                        <button class="chat-send-btn" id="chat-send">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-sidebar">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Common Questions</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="common-questions">
+                                    <button class="question-btn" onclick="askQuestion('How do I handle out-of-state coverage?')">
+                                        How do I handle out-of-state coverage?
+                                    </button>
+                                    <button class="question-btn" onclick="askQuestion('What are the main denial reasons?')">
+                                        What are the main denial reasons?
+                                    </button>
+                                    <button class="question-btn" onclick="askQuestion('How to request prior authorization?')">
+                                        How to request prior authorization?
+                                    </button>
+                                    <button class="question-btn" onclick="askQuestion('Explain risk score calculation')">
+                                        Explain risk score calculation
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Screen -->
+        <div id="analytics" class="tab-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Analytics Dashboard</h1>
+                    <p class="page-subtitle">Performance metrics and verification insights</p>
+                </div>
+
+                <div class="analytics-content">
+                    <!-- Monthly Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card stat-card--info">
+                            <div class="stat-card__content">
+                                <div class="stat-card__value">$47K</div>
+                                <div class="stat-card__label">Prevented Denials</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card stat-card--primary">
+                            <div class="stat-card__content">
+                                <div class="stat-card__value">1.8s</div>
+                                <div class="stat-card__label">Avg Processing Time</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card stat-card--success">
+                            <div class="stat-card__content">
+                                <div class="stat-card__value">3,247</div>
+                                <div class="stat-card__label">Total Verifications</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card stat-card--warning">
+                            <div class="stat-card__content">
+                                <div class="stat-card__value">156</div>
+                                <div class="stat-card__label">Escalated Cases</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts and Performance Breakdown -->
+                    <div class="analytics-grid">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Verification Trends</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-line"></i>
+                                    <p>Chart visualization would appear here</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Top Denial Risk Patterns</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="table-container">
+                                    <table class="data-table" id="risk-patterns-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Provider</th>
+                                                <th>Risk Factor</th>
+                                                <th>Frequency</th>
+                                                <th>Avg Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Verification Results Modal -->
+    <div id="results-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Verification Results</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="results-summary">
+                    <div class="result-status">
+                        <span class="status status--success">Coverage Verified</span>
+                        <div class="risk-assessment">
+                            <div class="risk-score">
+                                <span class="risk-label">Risk Score:</span>
+                                <span class="risk-value" id="modal-risk-score">85%</span>
+                            </div>
+                            <div class="risk-meter">
+                                <div class="risk-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="patient-summary">
+                        <h4>Patient Information</h4>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value" id="modal-patient-name">John Smith</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Policy:</span>
+                                <span class="info-value" id="modal-policy">BC12345678</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Insurance:</span>
+                                <span class="info-value" id="modal-insurance">Blue Cross Blue Shield</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline">Request Prior Auth</button>
+                <button class="btn btn--outline">Schedule Follow-up</button>
+                <button class="btn btn--primary">Add to Watch List</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
