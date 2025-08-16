@@ -1,37 +1,92 @@
-# --- Core web/backend ---
-fastapi
-uvicorn
+# Core Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
 
-# --- Database/ORM ---
-SQLAlchemy
-psycopg2-binary       # PostgreSQL driver (free)
+# Database
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.23
+alembic==1.12.1
 
-# --- Auth/Security ---
-python-jose[cryptography]
-passlib[bcrypt]
-python-multipart       # For file uploads
+# OCR and Image Processing
+pytesseract==0.3.10
+Pillow==10.1.0
+opencv-python==4.8.1.78
+pdf2image==1.16.3
 
-# --- Data processing ---
-pydantic
-numpy
-pandas
+# Cloud OCR Services (choose one or use multiple)
+google-cloud-vision==3.4.5
+boto3==1.34.0  # for AWS Textract
+azure-cognitiveservices-vision-computervision==0.9.0
 
-# --- OCR (Open Source) ---
-pytesseract            # Python wrapper for Tesseract OCR (free)
-Pillow                 # Image processing
-opencv-python          # Image manipulation, pre-processing for OCR
+# NLP and Text Processing
+spacy==3.7.2
+transformers==4.35.2
+torch==2.1.1
+sentence-transformers==2.2.2
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.23.0
 
-# --- NLP (Open Source) ---
-spacy                  # Lightweight Industrial-strength NLP library
-nltk                   # Natural Language Toolkit
+# Machine Learning
+scikit-learn==1.3.2
+xgboost==2.0.2
+pandas==2.1.4
+numpy==1.24.4
+joblib==1.3.2
 
-# --- ML/AI (Open Source) ---
-scikit-learn           # Machine Learning models
-xgboost                # Advanced ML (optional, free)
+# HTTP Requests and API Integration
+requests==2.31.0
+httpx==0.25.2
+aiohttp==3.9.1
 
-# --- Utilities ---
-requests               # API calls, HTTP requests
+# Data Validation and Serialization
+pydantic==2.5.0
+marshmallow==3.20.1
 
-# Remove if not used:
-# boto3, google-cloud-vision  # Only needed if using AWS/GCP paid APIs
+# Authentication and Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
 
+# Environment and Configuration
+python-dotenv==1.0.0
+pydantic-settings==2.0.3
+
+# Logging and Monitoring
+structlog==23.2.0
+sentry-sdk[fastapi]==1.38.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2  # for testing FastAPI
+pytest-cov==4.1.0
+
+# FHIR/HL7 Integration
+fhir.resources==7.0.2
+hl7==0.4.5
+
+# Data Processing and Analytics
+openpyxl==3.1.2  # for Excel file handling
+python-dateutil==2.8.2
+
+# Async Task Queue (optional)
+celery==5.3.4
+redis==5.0.1
+
+# CORS and Middleware
+fastapi-cors==0.0.6
+
+# File Upload and Storage
+aiofiles==23.2.1
+
+# Encryption for HIPAA Compliance
+cryptography==41.0.8
+
+# Development Tools
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+
+# Additional spaCy models (install separately)
+# python -m spacy download en_core_web_sm
