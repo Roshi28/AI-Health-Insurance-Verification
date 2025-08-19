@@ -1,0 +1,28 @@
+# train_and_save_model.py
+import pickle
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+# Example training data (replace with your real insurance dataset)
+data = {
+    "age": [25, 40, 35, 60, 45],
+    "claim_amount": [2000, 15000, 5000, 30000, 12000],
+    "pre_existing": [0, 1, 0, 1, 0],  # 1 = yes, 0 = no
+    "denied": [0, 1, 0, 1, 0]          # target: 1 = denied, 0 = approved
+}
+df = pd.DataFrame(data)
+
+X = df.drop("denied", axis=1)
+y = df["denied"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# Save model
+with open("backend/app/ai_models/denial_risk_model.pkl", "wb") as f:
+    pickle.dump(model, f)
+
+print("✅ Model trained and saved to denial_risk_model.pkl")
