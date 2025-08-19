@@ -10,11 +10,12 @@ class BatchStatus(str, enum.Enum):
     completed = "completed"
     failed = "failed"
 
-class Batch(Base):
+class Batch(Base):  # Consolidated Batch and BatchJob into single Batch model
     __tablename__ = "batches"
 
     id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    uploaded_at = Column(DateTime, default=datetime.utcnow, nullable=False)  # merged created_at + uploaded_at
+    file_name = Column(String, nullable=True)  # added from BatchJob, nullable to allow missing filename if needed
     status = Column(Enum(BatchStatus), default=BatchStatus.queued, nullable=False)
     file_count = Column(Integer, default=0, nullable=False)
     error = Column(String, nullable=True)
@@ -30,6 +31,7 @@ class Verification(Base):
     claim_id = Column(String, index=True)
     provider_id = Column(String, index=True)
     patient_id = Column(String, index=True)
+
     amount = Column(Float, nullable=True)
     diagnosis_code = Column(String, nullable=True)
     procedure_code = Column(String, nullable=True)
@@ -38,7 +40,8 @@ class Verification(Base):
 
     risk_score = Column(Float, nullable=True)
     risk_label = Column(String, nullable=True)
-    status = Column(String, default="created")   # created|processed|error
+
+    status = Column(String, default="created")  # values: created | processed | error
     error = Column(String, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)

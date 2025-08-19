@@ -1,23 +1,23 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-import os
 
-# Get DB URL from environment, fallback to SQLite
+# Get the database URL from environment, fallback to SQLite local file
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./dev.db")
 
-# Engine
+# Create the SQLAlchemy engine
 engine = create_engine(
     DATABASE_URL,
     connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 )
 
-# Session
+# Create a configured "Session" class
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base class for models
+# Base class for models to inherit
 Base = declarative_base()
 
-# Dependency for FastAPI routes
+# Dependency generator to inject database session into FastAPI routes
 def get_db():
     db = SessionLocal()
     try:
@@ -25,7 +25,7 @@ def get_db():
     finally:
         db.close()
 
-# Utility: create tables automatically in dev (NOT for production)
+# Utility function to create tables, to be called at startup or manually
 def init_db():
-    import app.models  # ensures models are registered before create_all
+    import app.models  # Ensure all models are imported and registered before create_all
     Base.metadata.create_all(bind=engine)
